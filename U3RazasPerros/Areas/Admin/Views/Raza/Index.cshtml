@@ -1,0 +1,30 @@
+﻿@model IEnumerable<U3RazasPerros.Models.Razas>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "LayoutAdmin";
+}
+
+<h1> Administrar Categorias </h1>
+
+<section class="listado">
+
+    <a class="mark" href="~/Admin/Raza/Agregar"> agregar
+        <h1> Nueva raza... </h1>
+    </a>
+
+@foreach(var razita in Model)
+{
+    <div class="card">
+        <h1> @razita.Nombre </h1>
+        <h2 title="@razita.Descripcion"> 
+            Descripción:
+            @if (razita.Descripcion.Length > 30) { @(razita.Descripcion.Substring(0,30) + "...") } else { @razita.Descripcion }
+        </h2>
+        <h2> @razita.OtrosNombres </h2>
+        <div class="botones">
+            <a href="~/Admin/Raza/Editar/@(razita.Id)" class="btnEditar"> Editar </a>
+            <a href="~/Admin/Raza/Eliminar/@(razita.Id)" class="btnEliminar"> Eliminar </a>
+        </div>
+    </div>
+}
+</section>

@@ -1,0 +1,69 @@
+﻿@model U3RazasPerros.Areas.Admin.Models.AgregarRazaViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "LayoutAdmin";
+}
+
+<form method="post" action="~/Admin/Raza/Agregar" enctype="multipart/form-data">
+    <div>
+        <h1> Agregar raza </h1>
+        <p> Nombre </p>
+        <input type="text" asp-for="Razas.Nombre" id="txtNombre" required="required"/>
+        <p> Descripcion </p>
+        <input type="text" asp-for="Razas.Descripcion" id="txtDescripcion" required="required"/>
+        <p> Otros nombres </p>
+        <input type="text" asp-for="Razas.OtrosNombres" id="txtOtrosNombres" required="required"/>
+        <p> Pais </p>
+        <select id="cmbPais" required="required" asp-for="Razas.IdPais" asp-items="@(new SelectList(Model.Paises,"Id","Nombre"))">
+            <option selected="selected" value=""> -- Seleccione un pais -- </option>
+        </select>
+        <p> Peso Maximo </p>
+        <input type="number" asp-for="Razas.PesoMax" id="txtPesoMax" required="required"/>
+        <p> Peso Minimo </p>
+        <input type="number" asp-for="Razas.PesoMin" id="txtPesoMin" required="required"/>
+        <p> Altura Maxima </p>
+        <input type="number" asp-for="Razas.AlturaMax" id="txtAltMax" required="required"/>
+        <p> Altura Minima </p>
+        <input type="number" asp-for="Razas.AlturaMin" id="txtAltMin" required="required"/>
+        <p> Esperanza de vida </p>
+        <input type="number" asp-for="Razas.EsperanzaVida" id="txtVida" required="required"/>
+        
+        <p> Patas </p>
+        <input type="text" asp-for="CaracteristicasFisicas.Patas" id="txtVida" required="required"/>
+        <p> Cola </p>
+        <input type="text" asp-for="CaracteristicasFisicas.Cola" id="txtVida" required="required"/>
+        <p> Hocico </p>
+        <input type="text" asp-for="CaracteristicasFisicas.Hocico" id="txtVida" required="required"/>
+        <p> Pelo </p>
+        <input type="text" asp-for="CaracteristicasFisicas.Pelo" id="txtVida" required="required"/>
+        <p> Color </p>
+        <input type="text" asp-for="CaracteristicasFisicas.Color" id="txtVida" required="required"/>
+        
+        <label> Imagen </label>
+        <input id="fileUpdoad" name="subimg" type="file" accept="image/jpeg" src="~/imgs_perros/NoPhoto.jpg"/>
+        <img id="imgprev" src="~/imgs_perros/NoPhoto.jpg" alt="Vista previa de la raza"/>
+
+        <div class="botones">
+            <p id="error">
+                @Html.ValidationSummary()
+            </p>
+            <input type="submit" value="Agregar" id="btnAgregar"/>
+            <input type="button" value="Cancelar" id="btnCancelar" onclick="history.goback()" formnovalidate/>
+        </div>
+    </div>
+</form>
+<script>
+    function mostrarImagen(input) {
+        if(input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector('#imgprev').src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    document.querySelector("#fileUpdoad").addEventListener("change", event => {
+        mostrarImagen(event.target)
+    });
+</script>

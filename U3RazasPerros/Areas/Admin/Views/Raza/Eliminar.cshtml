@@ -1,0 +1,38 @@
+﻿@model U3RazasPerros.Areas.Admin.Models.AgregarRazaViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "LayoutAdmin";
+}
+
+<form method="post" action="~/Admin/Raza/Eliminar">
+    <div>
+        <h1> Eliminar raza </h1>
+        <h2> Desea eliminar la raza @(Model.Razas.Nombre)? </h2>
+
+        <input type="text" asp-for="Razas.Id" value="@Model.Razas.Id" id="txtNombre" required="required" hidden/>
+        <input type="text" asp-for="CaracteristicasFisicas.Id" value="@Model.CaracteristicasFisicas.Id" id="txtNombre" required="required" hidden/>
+        @*<input type="text" asp-for="Paises.i" value="@Model.CaracteristicasFisicas.Id" id="txtNombre" required="required" />*@
+
+        <input type="text" asp-for="Razas.Nombre" id="txtNombre" required="required" hidden/>
+        <input type="text" asp-for="Razas.Descripcion" id="txtDescripcion" required="required" hidden/>
+        <input type="text" asp-for="Razas.OtrosNombres" id="txtOtrosNombres" required="required" hidden/>
+        <input type="number" asp-for="Razas.PesoMax" id="txtPesoMax" required="required" hidden/>
+        <input type="number" asp-for="Razas.PesoMin" id="txtPesoMin" required="required" hidden/>
+        <input type="number" asp-for="Razas.AlturaMax" id="txtAltMax" required="required" hidden/>
+        <input type="number" asp-for="Razas.AlturaMin" id="txtAltMin" required="required" hidden/>
+        <input type="number" asp-for="Razas.EsperanzaVida" id="txtVida" required="required" hidden/>
+        <input type="text" asp-for="CaracteristicasFisicas.Patas" id="txtVida" required="required" hidden/>
+        <input type="text" asp-for="CaracteristicasFisicas.Cola" id="txtVida" required="required" hidden/>
+        <input type="text" asp-for="CaracteristicasFisicas.Hocico" id="txtVida" required="required" hidden/>
+        <input type="text" asp-for="CaracteristicasFisicas.Pelo" id="txtVida" required="required" hidden/>
+        <input type="text" asp-for="CaracteristicasFisicas.Color" id="txtVida" required="required" hidden/>
+
+        <div class="botones">
+            <p id="error">
+                @Html.ValidationSummary()
+            </p>
+            <input type="submit" value="Eliminar" id="btnAgregar"/>
+            <input type="button" value="Cancelar" id="btnCancelar" onclick="history.goback()" formnovalidate/>
+        </div>
+    </div>
+</form>
