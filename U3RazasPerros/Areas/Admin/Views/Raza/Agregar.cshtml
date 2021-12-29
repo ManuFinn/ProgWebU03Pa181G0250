@@ -10,7 +10,8 @@
         <p> Nombre </p>
         <input type="text" asp-for="Razas.Nombre" id="txtNombre" required="required"/>
         <p> Descripcion </p>
-        <input type="" asp-for="Razas.Descripcion" id="txtDescripcion" required="required"/>
+        @*<input type="" asp-for="Razas.Descripcion" id="txtDescripcion" required="required"/>*@
+        <textarea asp-for="Razas.Descripcion" id="txtDescripcion" required="required">@(Model.Razas.Descripcion)</textarea>
         <p> Otros nombres </p>
         <input type="text" asp-for="Razas.OtrosNombres" id="txtOtrosNombres" required="required"/>
         <p> Pais </p>

@@ -291,6 +291,7 @@ namespace U3RazasPerros.Controllers
                 var carazita = Context.Caracteristicasfisicas.FirstOrDefault(x => (x.Id == razita.Id));
 
                 razita.Nombre = vm.Razas.Nombre;
+                razita.Descripcion = vm.Razas.Descripcion;
                 razita.OtrosNombres = vm.Razas.OtrosNombres;
                 razita.PesoMax = vm.Razas.PesoMax;
                 razita.PesoMin = vm.Razas.PesoMin;
