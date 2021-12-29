@@ -10,7 +10,7 @@
         <p> Nombre </p>
         <input type="text" asp-for="Razas.Nombre" id="txtNombre" required="required"/>
         <p> Descripcion </p>
-        <input type="text" asp-for="Razas.Descripcion" id="txtDescripcion" required="required"/>
+        <input type="" asp-for="Razas.Descripcion" id="txtDescripcion" required="required"/>
         <p> Otros nombres </p>
         <input type="text" asp-for="Razas.OtrosNombres" id="txtOtrosNombres" required="required"/>
         <p> Pais </p>
@@ -28,21 +28,26 @@
         <p> Esperanza de vida </p>
         <input type="number" asp-for="Razas.EsperanzaVida" id="txtVida" required="required"/>
         
+
+
         <p> Patas </p>
-        <input type="text" asp-for="CaracteristicasFisicas.Patas" id="txtVida" required="required"/>
+        <input type="text" asp-for="Razas.Caracteristicasfisicas.Patas" id="txtVida" required="required"/>
         <p> Cola </p>
-        <input type="text" asp-for="CaracteristicasFisicas.Cola" id="txtVida" required="required"/>
+        <input type="text" asp-for="Razas.Caracteristicasfisicas.Cola" id="txtVida" required="required"/>
         <p> Hocico </p>
-        <input type="text" asp-for="CaracteristicasFisicas.Hocico" id="txtVida" required="required"/>
+        <input type="text" asp-for="Razas.Caracteristicasfisicas.Hocico" id="txtVida" required="required"/>
         <p> Pelo </p>
-        <input type="text" asp-for="CaracteristicasFisicas.Pelo" id="txtVida" required="required"/>
+        <input type="text" asp-for="Razas.Caracteristicasfisicas.Pelo" id="txtVida" required="required"/>
         <p> Color </p>
-        <input type="text" asp-for="CaracteristicasFisicas.Color" id="txtVida" required="required"/>
+        <input type="text" asp-for="Razas.Caracteristicasfisicas.Color" id="txtVida" required="required"/>
         
+        <b/>
+
         <label> Imagen </label>
         <input id="fileUpdoad" name="subimg" type="file" accept="image/jpeg" src="~/imgs_perros/NoPhoto.jpg"/>
+        <b/>
         <img id="imgprev" src="~/imgs_perros/NoPhoto.jpg" alt="Vista previa de la raza"/>
-
+        <b/>
         <div class="botones">
             <p id="error">
                 @Html.ValidationSummary()

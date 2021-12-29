@@ -7,7 +7,8 @@ using U3RazasPerros.Models;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Printing;
-
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace U3RazasPerros.Controllers
 {
@@ -45,7 +46,7 @@ namespace U3RazasPerros.Controllers
         {
             vm.Paises = Context.Paises.OrderBy(x => x.Nombre);
 
-            if (vm.CaracteristicasFisicas.Id != vm.Razas.Id)
+            if (vm.Razas.Caracteristicasfisicas.Id != vm.Razas.Id)
             {
                 ModelState.AddModelError("", "Error en el sistema... el sistema fue hackeado... el sistema fue hackeado..."); return View(vm);
             }
@@ -61,23 +62,23 @@ namespace U3RazasPerros.Controllers
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Cola))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Cola))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Color))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Color))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Hocico))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Hocico))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Patas))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Patas))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Pelo))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Pelo))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
@@ -123,9 +124,16 @@ namespace U3RazasPerros.Controllers
             }
             else
             {
-                Context.Add(vm.CaracteristicasFisicas);
-                Context.Add(vm.Razas);
+                var car = vm.Razas.Caracteristicasfisicas;
+                vm.Razas.Caracteristicasfisicas = null;
+                Context.Razas.Add(vm.Razas);
                 Context.SaveChanges();
+                //
+                var razita = Context.Razas.FirstOrDefault(x => x.Nombre == vm.Razas.Nombre);
+                car.Id = razita.Id;
+                Context.Caracteristicasfisicas.Add(car);
+                Context.SaveChanges();
+
             }
 
             if (subimg != null)
@@ -168,6 +176,7 @@ namespace U3RazasPerros.Controllers
                 fack.CopyTo(fos);
                 fos.Close();
             }
+
             return RedirectToAction("Index");
         }
 
@@ -187,7 +196,6 @@ namespace U3RazasPerros.Controllers
                 return RedirectToAction("Index");
             }
             vm.Razas = razita;
-            vm.CaracteristicasFisicas = carazita;
             vm.Paises = Context.Paises.OrderBy(x => x.Nombre);
 
 
@@ -199,7 +207,7 @@ namespace U3RazasPerros.Controllers
         {
             vm.Paises = Context.Paises.OrderBy(x => x.Nombre);
 
-            if (vm.CaracteristicasFisicas.Id != vm.Razas.Id)
+            if (vm.Razas.Caracteristicasfisicas.Id != vm.Razas.Id)
             {
                 ModelState.AddModelError("", "Error en el sistema... el sistema fue hackeado... el sistema fue hackeado..."); return View(vm);
             }
@@ -215,23 +223,23 @@ namespace U3RazasPerros.Controllers
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Cola))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Cola))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Color))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Color))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Hocico))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Hocico))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Patas))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Patas))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
-            if (string.IsNullOrWhiteSpace(vm.CaracteristicasFisicas.Pelo))
+            if (string.IsNullOrWhiteSpace(vm.Razas.Caracteristicasfisicas.Pelo))
             {
                 ModelState.AddModelError("", "Completa todos los campos, que no quede ninguno en blanco..."); return View(vm);
             }
@@ -277,8 +285,10 @@ namespace U3RazasPerros.Controllers
             }
             else
             {
-                var razita = Context.Razas.FirstOrDefault(x => x.Id == vm.Razas.Id);
-                var carazita = Context.Caracteristicasfisicas.FirstOrDefault(x => x.Id == vm.CaracteristicasFisicas.Id);
+                //var razita = Context.Razas.FirstOrDefault(x => (x.Id == vm.Razas.Id && x.Caracteristicasfisicas.Id == vm.Razas.Caracteristicasfisicas.Id));
+
+                var razita = Context.Razas.FirstOrDefault(x => (x.Id == vm.Razas.Id));
+                var carazita = Context.Caracteristicasfisicas.FirstOrDefault(x => (x.Id == razita.Id));
 
                 razita.Nombre = vm.Razas.Nombre;
                 razita.OtrosNombres = vm.Razas.OtrosNombres;
@@ -289,14 +299,15 @@ namespace U3RazasPerros.Controllers
                 razita.EsperanzaVida = vm.Razas.EsperanzaVida;
                 razita.IdPais = vm.Razas.IdPais;
 
-                carazita.Patas = vm.CaracteristicasFisicas.Patas;
-                carazita.Pelo = vm.CaracteristicasFisicas.Pelo;
-                carazita.Color = vm.CaracteristicasFisicas.Color;
-                carazita.Hocico = vm.CaracteristicasFisicas.Hocico;
-                carazita.Cola = vm.CaracteristicasFisicas.Cola;
+                carazita.Patas = vm.Razas.Caracteristicasfisicas.Patas;
+                carazita.Pelo = vm.Razas.Caracteristicasfisicas.Pelo;
+                carazita.Color = vm.Razas.Caracteristicasfisicas.Color;
+                carazita.Hocico = vm.Razas.Caracteristicasfisicas.Hocico;
+                carazita.Cola = vm.Razas.Caracteristicasfisicas.Cola;
 
-                Context.Update(carazita);
+
                 Context.Update(razita);
+                Context.Update(carazita);
                 Context.SaveChanges();
             }
 
@@ -328,20 +339,20 @@ namespace U3RazasPerros.Controllers
                 }
             }
 
-            if (subimg == null)
-            {
-                var path = Hostito.WebRootPath + "/imgs_perros/NoPhoto.jpg";
+            //if (subimg == null)
+            //{
+            //    var path = Hostito.WebRootPath + "/imgs_perros/NoPhoto.jpg";
 
-                var razita2 = Context.Razas.FirstOrDefault(x => x.Nombre == vm.Razas.Nombre);
+            //    var razita2 = Context.Razas.FirstOrDefault(x => x.Nombre == vm.Razas.Nombre);
 
-                var path2 = Hostito.WebRootPath + "/imgs_perros/" + razita2.Id + "_0" + ".jpg";
+            //    var path2 = Hostito.WebRootPath + "/imgs_perros/" + razita2.Id + "_0" + ".jpg";
 
-                FileStream fack = new FileStream(path, FileMode.Open);
+            //    FileStream fack = new FileStream(path, FileMode.Open);
 
-                FileStream fos = new FileStream(path2, FileMode.Create);
-                fack.CopyTo(fos);
-                fos.Close();
-            }
+            //    FileStream fos = new FileStream(path2, FileMode.Create);
+            //    fack.CopyTo(fos);
+            //    fos.Close();
+            //}
 
             return RedirectToAction("Index");
         }
@@ -360,7 +371,6 @@ namespace U3RazasPerros.Controllers
                 return RedirectToAction("Index");
             }
             vm.Razas = razita;
-            vm.CaracteristicasFisicas = carazita;
             vm.Paises = Context.Paises.OrderBy(x => x.Nombre);
 
 

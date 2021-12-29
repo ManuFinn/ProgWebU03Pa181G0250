@@ -9,9 +9,5 @@ namespace U3RazasPerros.Areas.Admin.Models
 
         public Razas Razas { get; set; }
 
-        public Caracteristicasfisicas CaracteristicasFisicas { get; set; }
-
-        public Paises Paisesc { get; set; }
-
     }
 }
